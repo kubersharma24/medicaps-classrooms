@@ -1,4 +1,4 @@
-package com.kuber.medicapclassrooms.controler;
+package com.kuber.medicapclassrooms.controller;
 
 import com.kuber.medicapclassrooms.model.dtos.QuizCreationDto;
 import com.kuber.medicapclassrooms.model.dtos.QuizDeleteReqDto;

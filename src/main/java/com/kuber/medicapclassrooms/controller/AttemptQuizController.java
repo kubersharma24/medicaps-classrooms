@@ -1,4 +1,4 @@
-package com.kuber.medicapclassrooms.controler;
+package com.kuber.medicapclassrooms.controller;
 
 import com.kuber.medicapclassrooms.model.dtos.QuizIdDto;
 import com.kuber.medicapclassrooms.model.dtos.QuizSubmitDto;
@@ -17,11 +17,11 @@ import java.io.PrintWriter;
 import java.util.*;
 
 @WebServlet("/students/classrooms/quizzes/quiz")
-public class AttemptQuizContoler extends HttpServlet {
+public class AttemptQuizController extends HttpServlet {
     public Serviceimpl service;
     public RequestResponseMapper mapper;
 
-    public AttemptQuizContoler() {
+    public AttemptQuizController() {
         this.service = new Serviceimpl();
         this.mapper = new RequestResponseMapper();
     }
