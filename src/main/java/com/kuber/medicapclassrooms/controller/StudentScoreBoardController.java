@@ -9,11 +9,11 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-public class ScoreBoardControllerStudent extends HttpServlet {
+public class StudentScoreBoardController extends HttpServlet {
     public Serviceimpl service;
     public RequestResponseMapper mapper;
 
-    public ScoreBoardControllerStudent() {
+    public StudentScoreBoardController() {
         this.service = new Serviceimpl();
         this.mapper = new RequestResponseMapper();
     }
