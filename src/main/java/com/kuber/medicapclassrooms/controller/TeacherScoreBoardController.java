@@ -16,11 +16,11 @@ import java.io.PrintWriter;
 import java.util.List;
 
 @WebServlet("/teacher/classrooms/quizzes/score")
-public class ScoreBoardControllerTeacher extends HttpServlet {
+public class TeacherScoreBoardController extends HttpServlet {
     public Serviceimpl service;
     public RequestResponseMapper mapper;
 
-    public ScoreBoardControllerTeacher() {
+    public TeacherScoreBoardController() {
         this.service = new Serviceimpl();
         this.mapper = new RequestResponseMapper();
     }
