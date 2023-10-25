@@ -1,7 +1,5 @@
 package com.kuber.medicapclassrooms.controller.StudentTeacher;
 
-import com.kuber.medicapclassrooms.model.ScoreResponse;
-import com.kuber.medicapclassrooms.model.dtos.QuizIdDto;
 import com.kuber.medicapclassrooms.model.dtos.StudentScoreDto;
 import com.kuber.medicapclassrooms.services.Serviceimpl;
 import com.kuber.medicapclassrooms.utils.RequestResponseMapper;
@@ -14,13 +12,13 @@ import jakarta.ws.rs.core.MediaType;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
+
 @WebServlet("/students/classrooms/quizzes/score")
-public class ScoreBoardControllerStudent extends HttpServlet {
+public class StudentScoreBoardController extends HttpServlet {
     public Serviceimpl service;
     public RequestResponseMapper mapper;
 
-    public ScoreBoardControllerStudent() {
+    public StudentScoreBoardController() {
         this.service = new Serviceimpl();
         this.mapper = new RequestResponseMapper();
     }

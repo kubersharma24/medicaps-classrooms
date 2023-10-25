@@ -1,5 +1,4 @@
 package com.kuber.medicapclassrooms.controller.TeacherContoller;
-
 import com.kuber.medicapclassrooms.model.ScoreResponse;
 import com.kuber.medicapclassrooms.model.dtos.QuizIdDto;
 import com.kuber.medicapclassrooms.services.Serviceimpl;
@@ -16,11 +15,11 @@ import java.io.PrintWriter;
 import java.util.List;
 
 @WebServlet("/teacher/classrooms/quizzes/score")
-public class ScoreBoardControllerTeacher extends HttpServlet {
+public class TeacherScoreBoardController extends HttpServlet {
     public Serviceimpl service;
     public RequestResponseMapper mapper;
 
-    public ScoreBoardControllerTeacher() {
+    public TeacherScoreBoardController() {
         this.service = new Serviceimpl();
         this.mapper = new RequestResponseMapper();
     }
