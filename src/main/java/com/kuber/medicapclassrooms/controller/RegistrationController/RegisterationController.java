@@ -1,4 +1,4 @@
-package com.kuber.medicapclassrooms.controller;
+package com.kuber.medicapclassrooms.controller.RegistrationController;
 
 import com.kuber.medicapclassrooms.model.Signup;
 import com.kuber.medicapclassrooms.services.Serviceimpl;

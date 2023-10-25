@@ -1,6 +1,7 @@
-package com.kuber.medicapclassrooms.controller;
+package com.kuber.medicapclassrooms.controller.TeacherContoller;
 
 import com.kuber.medicapclassrooms.model.Classroom;
+import com.kuber.medicapclassrooms.model.dtos.CLassCodeDto;
 import com.kuber.medicapclassrooms.model.dtos.ClassRoomRequestDto;
 import com.kuber.medicapclassrooms.model.dtos.ClassRoomCreationRequestDto;
 import com.kuber.medicapclassrooms.services.Serviceimpl;
@@ -52,6 +53,14 @@ public class TeacherController extends HttpServlet {
     @Override// delete a classroom
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         PrintWriter out = resp.getWriter();
+        CLassCodeDto  cLassCode = (CLassCodeDto) mapper.getRequestObject(resp,req,CLassCodeDto.class);
+        resp.setContentType(MediaType.APPLICATION_JSON);
+        if(service.deleteClassById(cLassCode)){
+                out.print(mapper.setResponseObject("200"));
+        }else{
+            out.print(mapper.setResponseObject("500"));
+        }
+
     }
 
 }

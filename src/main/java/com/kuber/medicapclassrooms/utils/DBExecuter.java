@@ -48,19 +48,27 @@ public class DBExecuter {
         return list;
     }
 
-    public static boolean deleteQuizById(QuizDeleteReqDto quizDeleteReq) {
-        PreparedStatement stm ;
-        try {
-            stm = con.prepareStatement(DELETE_QUIZ_BY_ID_FROM_CLASSROOM_QUIZ_TABLE);
-            stm.setInt(1,quizDeleteReq.getQuizId());
-            if(stm.executeUpdate()>0){
-                stm = con.prepareStatement(DELETE_QUESTION_IN_QUIZ);
+    public static boolean deleteQuizById(QuizIdDto quizDeleteReq) {
+        PreparedStatement stm ;                                           // 2 DELETE_SCORE_RELATED_TO_QUIZ_ID_FROM_SCOREBOARD_TABLE
+        try {                                                            // 3  DELETE_QUESTION_IN_QUIZ
+            stm = con.prepareStatement(DELETE_QUIZ_RESPONSE_FROM_QUIZRESPONSE_TABLE); //1   //  4  DELETE_QUIZ_BY_ID_FROM_CLASSROOM_QUIZ_TABLE
+            stm.setInt(1,quizDeleteReq.getQuizId());        //  5  DELETE_QUIZ_BY_ID_FROM_QUIZ_TABLE
+            if(stm.executeUpdate()>=0){
+                stm = con.prepareStatement(DELETE_SCORE_RELATED_TO_QUIZ_ID_FROM_SCOREBOARD_TABLE); // 2
                 stm.setInt(1,quizDeleteReq.getQuizId());
-                if(stm.executeUpdate()>0){
-                    stm = con.prepareStatement(DELETE_QUIZ_BY_ID_FROM_QUIZ_TABLE);
+                if(stm.executeUpdate()>=0){
+                    stm = con.prepareStatement(DELETE_QUESTION_IN_QUIZ); // 3
                     stm.setInt(1, quizDeleteReq.getQuizId());
-                    if (stm.executeUpdate() > 0) {
-                        return true;
+                    if (stm.executeUpdate() >=0) {
+                        stm = con.prepareStatement(DELETE_QUIZ_BY_ID_FROM_CLASSROOM_QUIZ_TABLE);// 4
+                        stm.setInt(1, quizDeleteReq.getQuizId());
+                        if(stm.executeUpdate()>=0){
+                            stm = con.prepareStatement(DELETE_QUIZ_BY_ID_FROM_QUIZ_TABLE);// 5
+                            stm.setInt(1, quizDeleteReq.getQuizId());
+                            if(stm.executeUpdate()>=0){
+                                return true;
+                            }
+                        }
                     }
                 }
             }
@@ -312,6 +320,64 @@ public class DBExecuter {
                 score.setQuizId(resultSet.getInt("quizId"));
                 score.setUserId(resultSet.getString("userId"));
                 list.add(score);
+            }
+            return list;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static Object getScoresOfStudentAttendedTheQuizByQuizId(StudentScoreDto studentScore) {
+        PreparedStatement stm ;
+        try {
+            stm = con.prepareStatement(GET_SCORE_OF_THE_STUDENT_BY_USERID_AND_QUIZID);
+            stm.setString(1,studentScore.getUserId());
+            stm.setInt(2,studentScore.getQuizId());
+            ResultSet resultSet = stm.executeQuery();
+            while(resultSet.next()) {
+                ScoreResponse score = new ScoreResponse();
+                score.setQuizId(studentScore.getQuizId());
+                score.setUserId(studentScore.getUserId());
+                score.setScore(resultSet.getInt("score"));
+                score.setTotalmarks(resultSet.getInt("totalmarks"));
+                return score;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
+    public static boolean deleteClassById(CLassCodeDto cLassCode) {
+        PreparedStatement stm ;
+        try {
+            stm= con.prepareStatement(REMOVING_USERS_FROM_CLASS_BY_REMOVING_THEM_FROM_UERS_IN_CLASS_TABLE);
+            stm.setString(1,cLassCode.getClassCode());
+            int del = stm.executeUpdate();
+            if(del >=0){
+                stm= con.prepareStatement(DELETE_CLASS_FROM_CLASS_TABLE_BY_CLASSID);
+                stm.setString(1,cLassCode.getClassCode());
+                if(stm.executeUpdate()>0){
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
+
+    public static List<QuizIdDto> findAllQuizByClassId(CLassCodeDto cLassCode) {
+        List<QuizIdDto> list = new ArrayList<>();
+        PreparedStatement stm ;
+        try {
+            stm = con.prepareStatement(FIND_ALL_QUIZ_IN_CLASS);
+            stm.setString(1,cLassCode.getClassCode());
+            ResultSet resultSet1 = stm.executeQuery();
+            while(resultSet1.next()){
+                QuizIdDto quiz = new QuizIdDto();
+                quiz.setQuizId(resultSet1.getInt("quizId"));
+                list.add(quiz);
             }
             return list;
         } catch (SQLException e) {

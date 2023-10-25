@@ -21,10 +21,15 @@ public class Constants {
     public static final String GET_QUIZINFO_FOR_ATTEMPTINGIT_FROM_QUESTIONS = "select questionId,serialno,question,option1,option2,option3,option4 from questions where quizId=?";
     public static final String SUBMIT_QUIZ_RESP_TO_QUIZ_RESPONSE_TABLE = "insert into quizresponse values(?,?,?,?)";
 	public static final String SUBMIT_RESPOUNSE_OF_QUIZREPONSETABLE = "insert into quizresponse values(?,?,?,?,?)";
-    public static final String GET_ALL_ANSWERS_FROM_QUIZANSWERTABLE_WITH_USERID_AND_QUIZID = "select answer from quizresponse where userID=? & quizId=?";
+    public static final String GET_ALL_ANSWERS_FROM_QUIZANSWERTABLE_WITH_USERID_AND_QUIZID = "select answer from quizresponse where userID=? and quizId=?";
 	public static final String GET_ALL_CORRECT_ANSERS_FROM_QUESTIONS_TABLE_USING_QUIZID = "select answer from questions where quizId=?";
 	public static final String UPDATE_SCORE_IN_THE_SCOREBOARD_TABLE = "insert into scoreboard (quizId, userId, score , totalmarks) values (?,?,?,?)";
 	public static final String GET_LIST_OF_SCORE_OF_QUIZ_WITH_QUIZID = "select quizId,userId,score,totalmarks  from scoreboard where quizId=?";
+    public static final String DELETE_SCORE_RELATED_TO_QUIZ_ID_FROM_SCOREBOARD_TABLE = "delete from scoreboard where quizId=?";
+    public static final String GET_SCORE_OF_THE_STUDENT_BY_USERID_AND_QUIZID = "select score,totalmarks from scoreboard where userid=? and quizid=?";
+	public static final String DELETE_QUIZ_RESPONSE_FROM_QUIZRESPONSE_TABLE = "delete from quizresponse where quizid=?";
+	public static final String REMOVING_USERS_FROM_CLASS_BY_REMOVING_THEM_FROM_UERS_IN_CLASS_TABLE = "delete from user_in_class where classId=?";
+	public static final String DELETE_CLASS_FROM_CLASS_TABLE_BY_CLASSID = "delete from classroom where classId=?";
 	static final String CONNECTIONS_URL = "jdbc:mysql://localhost:3306/classroom";
 	static final String USERNAME ="root";
 	static final String PASSWORD = "root";

@@ -1,6 +1,6 @@
-package com.kuber.medicapclassrooms.controller;
+package com.kuber.medicapclassrooms.controller.StudentTeacher;
 
-import com.kuber.medicapclassrooms.model.Student;
+import com.kuber.medicapclassrooms.model.QuizResponseToStudent;
 import com.kuber.medicapclassrooms.model.dtos.CLassCodeDto;
 import com.kuber.medicapclassrooms.services.Serviceimpl;
 import com.kuber.medicapclassrooms.utils.RequestResponseMapper;
@@ -11,34 +11,31 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.ws.rs.core.MediaType;
 
+import java.util.*;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
-@WebServlet("/teachers/classroom")
-public class CLassroomController extends HttpServlet {
+@WebServlet("/students/classrooms/quizzes")
+public class StudentDetailController extends HttpServlet {
     public Serviceimpl service;
-    public RequestResponseMapper mapper ;
+    public RequestResponseMapper mapper;
 
-    public CLassroomController() {
+    public StudentDetailController() {
         this.service = new Serviceimpl();
         this.mapper = new RequestResponseMapper();
     }
-    @Override// return list of all students in a class
+    @Override// return all quizzes in class of student bases on teacher id
+            // classId-> quizinclass-> return tile and descriptin
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
-        CLassCodeDto classCode = (CLassCodeDto) mapper.getRequestObject(resp,req, CLassCodeDto.class);
-        List<Student> list = service.getAllStudentsInClass(classCode);
+        CLassCodeDto cLassCode = (CLassCodeDto) mapper.getRequestObject(resp,req,CLassCodeDto.class);
+        List<QuizResponseToStudent> list = service.getAllQuizOfStudentInClass(cLassCode);
         resp.setContentType(MediaType.APPLICATION_JSON);
-        if(list.size()>0){
-            out.print(mapper.setResponseObject(list));
-        }else{
-            out.print(mapper.setResponseObject(new ArrayList<String>()));
-        }
+        out.print(mapper.setResponseObject(list));
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doPost(req, resp);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.kuber.medicapclassrooms.controller;
+package com.kuber.medicapclassrooms.controller.StudentTeacher;
 
 import com.kuber.medicapclassrooms.model.dtos.QuizIdDto;
 import com.kuber.medicapclassrooms.model.dtos.QuizSubmitDto;

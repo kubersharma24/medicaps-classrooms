@@ -5,12 +5,11 @@ import com.kuber.medicapclassrooms.utils.DBExecuter;
 
 import java.util.List;
 
-public class Serviceimpl{
+public class Serviceimpl {
 	DBExecuter dBexecuter;
 	public Serviceimpl() {
 		dBexecuter = new DBExecuter();
 	}
-
 
 	public boolean createAccount(Signup signup) {
 		return DBExecuter.createAccount(signup);
@@ -42,7 +41,7 @@ public class Serviceimpl{
 		return DBExecuter.findAllQuiz(quizRequest);
     }
 
-	public boolean deleteQuizById(QuizDeleteReqDto quizDeleteReq) {
+	public boolean deleteQuizById(QuizIdDto quizDeleteReq) {
 		return DBExecuter.deleteQuizById(quizDeleteReq);
 	}
 
@@ -84,5 +83,21 @@ public class Serviceimpl{
 
 	public List<ScoreResponse> getScoresOfStudentAttendedTheQuiz(QuizIdDto quizId) {
 		return DBExecuter.getScoresOfStudentAttendedTheQuiz(quizId);
+	}
+
+	public Object getScoresOfStudentAttendedTheQuizByQuizId(StudentScoreDto studentScore) {
+		return DBExecuter.getScoresOfStudentAttendedTheQuizByQuizId(studentScore);
+	}
+
+	public boolean deleteClassById(CLassCodeDto cLassCode) {
+		List<QuizIdDto> quizzes = DBExecuter.findAllQuizByClassId(cLassCode);
+		for(QuizIdDto quiz : quizzes){
+			if(deleteQuizById(quiz)){
+					continue;
+			}else{
+				return false;
+			}
+		}
+		return DBExecuter.deleteClassById(cLassCode);
 	}
 }

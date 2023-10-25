@@ -1,9 +1,6 @@
-package com.kuber.medicapclassrooms.controller;
+package com.kuber.medicapclassrooms.controller.TeacherContoller;
 
-import com.kuber.medicapclassrooms.model.dtos.QuizCreationDto;
-import com.kuber.medicapclassrooms.model.dtos.QuizDeleteReqDto;
-import com.kuber.medicapclassrooms.model.dtos.QuizRequestDto;
-import com.kuber.medicapclassrooms.model.dtos.QuizRespounseDto;
+import com.kuber.medicapclassrooms.model.dtos.*;
 import com.kuber.medicapclassrooms.services.Serviceimpl;
 import com.kuber.medicapclassrooms.utils.RequestResponseMapper;
 import jakarta.servlet.ServletException;
@@ -51,7 +48,7 @@ public class QuizController extends HttpServlet {
     @Override// delete quiz
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
-        QuizDeleteReqDto quizDeleteReq= (QuizDeleteReqDto) mapper.getRequestObject(resp,req,QuizDeleteReqDto.class);
+        QuizIdDto quizDeleteReq= (QuizIdDto) mapper.getRequestObject(resp,req,QuizIdDto.class);
         resp.setContentType(MediaType.APPLICATION_JSON);
         if(service.deleteQuizById(quizDeleteReq)){
             out.print(mapper.setResponseObject("200 OK"));
