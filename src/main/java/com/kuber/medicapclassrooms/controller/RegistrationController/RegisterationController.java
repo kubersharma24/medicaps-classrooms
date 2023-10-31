@@ -39,6 +39,7 @@ public class RegisterationController extends HttpServlet {
 
     @Override// this get req return the role of the user trying to login to the the web app
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.getHeaders("Access-Contol-Allow-Origin");
         PrintWriter out = resp.getWriter();
         Logininfo logininfo = (Logininfo) mapper.getRequestObject(resp,req, Logininfo.class);
         resp.setContentType(MediaType.APPLICATION_JSON);
