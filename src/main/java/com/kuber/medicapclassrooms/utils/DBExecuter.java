@@ -385,6 +385,94 @@ public class DBExecuter {
         }
     }
 
+    public static boolean CheckValidation(Logininfo logininfo) {
+        String email = logininfo.getEmail();
+        String password = logininfo.getPassword();
+        try {
+            PreparedStatement stm = con.prepareStatement(CHECK_VALIDATION_QUERY);
+            stm.setString(1, email);
+            ResultSet resultSet = stm.executeQuery();
+            if (!resultSet.next()) {
+                return false;
+            } else {
+                String passStringDB = resultSet.getString("password"), passStringLoginString = logininfo.getPassword();
+                if (passStringDB.equals(passStringLoginString)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static String getRoleByEmail(String email) {
+        try {
+            PreparedStatement stm = con.prepareStatement(GET_ROLE_BY_EMAIL);
+            stm.setString(1, email);
+            ResultSet resultSet = stm.executeQuery();
+            while (resultSet.next()) {
+                return resultSet.getString("role");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    public static boolean checkEmail(Logininfo logininfo) {
+        String email = logininfo.getEmail();
+        try {
+            PreparedStatement stm = con.prepareStatement(CHECK_EMAIL_QUERY);
+            stm.setString(1, email);
+            ResultSet resultSet = stm.executeQuery();
+            if (resultSet.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean checkPassword(Logininfo logininfo) {
+        String email = logininfo.getEmail();
+        String password = logininfo.getPassword();
+        try {
+            PreparedStatement stm = con.prepareStatement(CHECK_PASSWORD_QUERY);
+            stm.setString(1, email);
+            ResultSet resultSet = stm.executeQuery();
+            if (resultSet.next()) {
+                String passStringDB = resultSet.getString("password"), passStringLoginString = logininfo.getPassword();
+                if (passStringDB.equals(passStringLoginString)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean De_roleFromClassByClassIdAndUserId(CLassCodeDto classCode) {
+        PreparedStatement stm;
+        try {
+            stm = con.prepareStatement(DROP_CLASSROOM_BY_CLASSID_USING_STUDENT_USER_NAME_AND_CLASSCODE);
+            stm.setString(1,classCode.getUserId());
+            stm.setString(2,classCode.getClassCode());
+            if(stm.executeUpdate()>=0){
+                return true;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
+
     private AtomicInteger getSequencer() {
         int random = 1 + (int) (Math.random() * 999);
         return new AtomicInteger(random);

@@ -100,4 +100,24 @@ public class Serviceimpl {
 		}
 		return DBExecuter.deleteClassById(cLassCode);
 	}
+
+	public boolean isValidUser(Logininfo logininfo) {
+		return DBExecuter.CheckValidation(logininfo);
+	}
+
+	public String getRole(Logininfo logininfo) {
+		return DBExecuter.getRoleByEmail(logininfo.getEmail());
+	}
+
+	public boolean isValidEmail(Logininfo logininfo) {
+		return DBExecuter.checkEmail(logininfo);
+	}
+
+	public boolean isValidPassword(Logininfo logininfo) {
+		return DBExecuter.checkPassword(logininfo);
+	}
+
+	public boolean De_roleFromClassByClassIdAndUserId(CLassCodeDto classCode) {
+		return DBExecuter.De_roleFromClassByClassIdAndUserId(classCode);
+	}
 }

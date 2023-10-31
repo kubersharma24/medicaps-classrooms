@@ -50,8 +50,15 @@ public class StudentController extends HttpServlet {
         }
     }
 
-    @Override
+    @Override// de-role from classroom
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doDelete(req, resp);
+        PrintWriter out = resp.getWriter();
+        CLassCodeDto classCode = (CLassCodeDto) mapper.getRequestObject(resp,req,CLassCodeDto.class);
+        resp.setContentType(MediaType.APPLICATION_JSON);
+        if(service.De_roleFromClassByClassIdAndUserId(classCode)){
+            out.print(mapper.setResponseObject("200"));
+        }else{
+            out.print(mapper.setResponseObject("500"));
+        }
     }
 }
