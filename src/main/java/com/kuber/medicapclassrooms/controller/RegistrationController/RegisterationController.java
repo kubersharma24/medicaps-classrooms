@@ -15,7 +15,7 @@ import jakarta.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/register/login")
+@WebServlet("/register")
 public class RegisterationController extends HttpServlet {
     public Serviceimpl service;
     public RequestResponseMapper mapper ;
@@ -26,6 +26,7 @@ public class RegisterationController extends HttpServlet {
     }
 
     public void doPost(HttpServletRequest req , HttpServletResponse resp) throws IOException {
+
         PrintWriter out = resp.getWriter();
         Signup signup = (Signup) mapper.getRequestObject(resp ,req, Signup.class);
         resp.setContentType(MediaType.APPLICATION_JSON);
@@ -35,32 +36,5 @@ public class RegisterationController extends HttpServlet {
             out.print("bad req");
         }
 
-    }
-
-    @Override// this get req return the role of the user trying to login to the the web app
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.getHeaders("Access-Contol-Allow-Origin");
-        PrintWriter out = resp.getWriter();
-        Logininfo logininfo = (Logininfo) mapper.getRequestObject(resp,req, Logininfo.class);
-        resp.setContentType(MediaType.APPLICATION_JSON);
-        LoginResponse loginResponse = new LoginResponse();
-        loginResponse.setEmail(logininfo.getEmail());
-        loginResponse.setPassword(logininfo.getPassword());
-        if (service.isValidUser(logininfo)) {
-            if(service.getRole(logininfo).equalsIgnoreCase("Student")){
-                loginResponse.setStatus("Student");
-            }else{
-                loginResponse.setStatus("Teacher");
-            }
-        } else {
-            if (service.isValidEmail(logininfo)) {
-                if (!service.isValidPassword(logininfo)) {
-                    loginResponse.setStatus("Incorrect password");
-                }
-            } else {
-                    loginResponse.setStatus("NO user found");
-            }
-        }
-        out.print(mapper.setResponseObject(loginResponse));
     }
 }
