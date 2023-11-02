@@ -30,7 +30,9 @@ public class TeacherController extends HttpServlet {
     @Override // return list of classroom for particular teacher
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         PrintWriter out = resp.getWriter();
-        ClassRoomRequestDto classrooms = (ClassRoomRequestDto) mapper.getRequestObject(resp, req, ClassRoomRequestDto.class);
+//        ClassRoomRequestDto classrooms = (ClassRoomRequestDto) mapper.getRequestObject(resp, req, ClassRoomRequestDto.class);
+        ClassRoomRequestDto classrooms = new ClassRoomRequestDto();
+        classrooms.setTeacher(req.getParameter("teacher"));
         List<Classroom> classRoomlist = service.findAllClass(classrooms.getTeacher());
         resp.setContentType(MediaType.APPLICATION_JSON);
         if (classRoomlist.size() > 0) {

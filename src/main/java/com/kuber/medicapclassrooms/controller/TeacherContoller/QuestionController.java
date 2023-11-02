@@ -31,7 +31,11 @@ public class QuestionController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("Request has reached here");
         PrintWriter out = resp.getWriter();
-        QuizRespounseDto quizRespounse = (QuizRespounseDto) mapper.getRequestObject(resp,req,QuizRespounseDto.class);
+        // changed form json body to normal
+//        QuizRespounseDto quizRespounse = (QuizRespounseDto) mapper.getRequestObject(resp,req,QuizRespounseDto.class);
+        QuizRespounseDto quizRespounse = new QuizRespounseDto();
+        int quizId = Integer.parseInt(req.getParameter("quizId"));
+        quizRespounse.setQuizId(quizId);  // new change from j to text
         QuestionListResponseDto Questions = service.getQuizDetails(quizRespounse);
         resp.setContentType(MediaType.APPLICATION_JSON);
         out.print(mapper.setResponseObject(Questions));

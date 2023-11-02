@@ -31,6 +31,8 @@ public class Constants {
 	public static final String REMOVING_USERS_FROM_CLASS_BY_REMOVING_THEM_FROM_UERS_IN_CLASS_TABLE = "delete from user_in_class where classId=?";
 	public static final String DELETE_CLASS_FROM_CLASS_TABLE_BY_CLASSID = "delete from classroom where classId=?";
     public static final String DROP_CLASSROOM_BY_CLASSID_USING_STUDENT_USER_NAME_AND_CLASSCODE = "delete from user_in_class where userId=? and classId=?";
+    public static final String CHECK_IF_USER_HAS_ATTEMPTED_THE_QUIZ_OR_NOT = " select userId from quizresponse where quizId=? and userId=?";
+    public static final String SEE_IF_STUDENT_HAS_ALRADY_JOINED_THE_CLASS_OR_NOT_IN_USER_IN_CLASSROOM_TABLE = "select userId from user_in_class where userId=? and classId=?";
     static final String CONNECTIONS_URL = "jdbc:mysql://localhost:3306/classroom";
 	static final String USERNAME ="root";
 	static final String PASSWORD = "root";

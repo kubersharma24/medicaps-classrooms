@@ -28,7 +28,10 @@ public class StudentController extends HttpServlet {
     @Override// return list of all classes of student
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
-        StudentIdDto studentId = (StudentIdDto) mapper.getRequestObject(resp,req, StudentIdDto.class);
+//        StudentIdDto studentId = (StudentIdDto) mapper.getRequestObject(resp,req, StudentIdDto.class);
+        StudentIdDto studentId = new StudentIdDto();
+        studentId.setUserId(req.getParameter("userId"));
+
         List <ClassroomResponse> list = service.findAllClassOfStudent(studentId);
         resp.setContentType(MediaType.APPLICATION_JSON);
         if(list.size()>0){
@@ -43,11 +46,16 @@ public class StudentController extends HttpServlet {
         PrintWriter out = resp.getWriter();
         CLassCodeDto joinInclass = (CLassCodeDto) mapper.getRequestObject(resp,req, CLassCodeDto.class);
         resp.setContentType(MediaType.APPLICATION_JSON);
-        if(service.joinStudentInClass(joinInclass)){
-            out.print(mapper.setResponseObject(joinInclass));
+        if(service.checkIfuserHAsAllradyJoinedCLass(joinInclass)){
+            out.print(mapper.setResponseObject("302"));
         }else{
-            out.print(mapper.setResponseObject("Bad Request"));
+            if(service.joinStudentInClass(joinInclass)){
+                out.print(mapper.setResponseObject("200"));
+            }else{
+                out.print(mapper.setResponseObject("500"));
+            }
         }
+
     }
 
     @Override// de-role from classroom

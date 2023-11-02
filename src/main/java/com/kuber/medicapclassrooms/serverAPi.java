@@ -1,4 +1,4 @@
-package com.kuber.medicapclassrooms.Filter.serverCheck;
+package com.kuber.medicapclassrooms;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

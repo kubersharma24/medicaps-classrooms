@@ -35,6 +35,5 @@ public class RegisterationController extends HttpServlet {
         }else{
             out.print("bad req");
         }
-
     }
 }

@@ -20,7 +20,6 @@ import java.util.*;
 public class AttemptQuizController extends HttpServlet {
     public Serviceimpl service;
     public RequestResponseMapper mapper;
-
     public AttemptQuizController() {
         this.service = new Serviceimpl();
         this.mapper = new RequestResponseMapper();
@@ -30,7 +29,9 @@ public class AttemptQuizController extends HttpServlet {
     @Override// get delails for attempting the quiz by quiz id
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
-        QuizIdDto quizId = (QuizIdDto) mapper.getRequestObject(resp,req,QuizIdDto.class);
+//        QuizIdDto quizId = (QuizIdDto) mapper.getRequestObject(resp,req,QuizIdDto.class);
+        QuizIdDto quizId = new QuizIdDto();
+        quizId.setQuizId(Integer.parseInt(req.getParameter("quizId")));
         List <quizAttemptDetailsResponse> list = service.getAttemptQuizDetails(quizId);
         resp.setContentType(MediaType.APPLICATION_JSON);
         out.print(mapper.setResponseObject(list));

@@ -27,7 +27,9 @@ public class TeacherScoreBoardController extends HttpServlet {
     @Override // return total score of the quiz
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
-        QuizIdDto quizId = (QuizIdDto) mapper.getRequestObject(resp,req, QuizIdDto.class);
+//        QuizIdDto quizId = (QuizIdDto) mapper.getRequestObject(resp,req, QuizIdDto.class);
+        QuizIdDto quizId = new QuizIdDto();
+        quizId.setQuizId(Integer.parseInt(req.getParameter("quizId")));
         List<ScoreResponse> list = service.getScoresOfStudentAttendedTheQuiz(quizId);
         resp.setContentType(MediaType.APPLICATION_JSON);
         out.print(mapper.setResponseObject(list));
@@ -35,7 +37,6 @@ public class TeacherScoreBoardController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
     }
 
     @Override

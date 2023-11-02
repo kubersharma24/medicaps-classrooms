@@ -27,7 +27,9 @@ public class CLassroomController extends HttpServlet {
     @Override// return list of all students in a class
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
-        CLassCodeDto classCode = (CLassCodeDto) mapper.getRequestObject(resp,req, CLassCodeDto.class);
+//        CLassCodeDto classCode = (CLassCodeDto) mapper.getRequestObject(resp,req, CLassCodeDto.class);
+        CLassCodeDto classCode = new CLassCodeDto();
+        classCode.setClassCode(req.getParameter("classCode"));
         List<Student> list = service.getAllStudentsInClass(classCode);
         resp.setContentType(MediaType.APPLICATION_JSON);
         if(list.size()>0){

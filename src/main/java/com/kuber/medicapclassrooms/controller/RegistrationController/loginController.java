@@ -24,7 +24,7 @@ public class loginController extends HttpServlet {
     }
     @Override
     // this get req return the role of the user trying to login to the the web app
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
         Logininfo logininfo = (Logininfo) mapper.getRequestObject(resp,req, Logininfo.class);
         resp.setContentType(MediaType.APPLICATION_JSON);

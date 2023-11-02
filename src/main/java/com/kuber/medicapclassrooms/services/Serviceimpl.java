@@ -120,4 +120,12 @@ public class Serviceimpl {
 	public boolean De_roleFromClassByClassIdAndUserId(CLassCodeDto classCode) {
 		return DBExecuter.De_roleFromClassByClassIdAndUserId(classCode);
 	}
+
+	public boolean checkIfUserHasAttemptedTheQuiz(CheckQuizAttemptForAttemptingTheQuizDto quizAttemptForAttemptingTheQuiz) {
+		return DBExecuter.checkIfUserHasAttemptedTheQuiz(quizAttemptForAttemptingTheQuiz);
+	}
+
+	public boolean checkIfuserHAsAllradyJoinedCLass(CLassCodeDto joinInclass) {
+		return DBExecuter.checkIfuserHAsAllradyJoinedCLass(joinInclass);
+	}
 }

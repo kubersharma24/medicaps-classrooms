@@ -473,6 +473,37 @@ public class DBExecuter {
         return false;
     }
 
+    public static boolean checkIfUserHasAttemptedTheQuiz(CheckQuizAttemptForAttemptingTheQuizDto quizAttemptForAttemptingTheQuiz) {
+        PreparedStatement stm ;
+        try {
+            stm = con.prepareStatement(CHECK_IF_USER_HAS_ATTEMPTED_THE_QUIZ_OR_NOT);
+            stm.setInt(1,quizAttemptForAttemptingTheQuiz.getQuizId());
+            stm.setString(2, quizAttemptForAttemptingTheQuiz.getUserId());
+            ResultSet resultSet1 = stm.executeQuery();
+            if(resultSet1.next())
+                return true;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
+
+    public static boolean checkIfuserHAsAllradyJoinedCLass(CLassCodeDto joinInclass) {
+        PreparedStatement stm;
+        try {
+            stm = con.prepareStatement(SEE_IF_STUDENT_HAS_ALRADY_JOINED_THE_CLASS_OR_NOT_IN_USER_IN_CLASSROOM_TABLE);
+            stm.setString(1, joinInclass.getUserId());
+            stm.setString(2, joinInclass.getClassCode());
+            ResultSet resultSet1 = stm.executeQuery();
+            if(resultSet1.next())
+                return true;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
+
     private AtomicInteger getSequencer() {
         int random = 1 + (int) (Math.random() * 999);
         return new AtomicInteger(random);

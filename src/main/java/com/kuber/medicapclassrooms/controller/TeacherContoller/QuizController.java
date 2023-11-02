@@ -26,7 +26,9 @@ public class QuizController extends HttpServlet {
     @Override // return all available quiz
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
-        QuizRequestDto quizRequest = (QuizRequestDto) mapper.getRequestObject(resp,req,QuizRequestDto.class);
+//        QuizRequestDto quizRequest = (QuizRequestDto) mapper.getRequestObject(resp,req,QuizRequestDto.class);
+        QuizRequestDto quizRequest = new QuizRequestDto();
+        quizRequest.setClassId(req.getParameter("classId"));
         List <QuizRespounseDto> list = service.findAllQuiz(quizRequest);
         resp.setContentType(MediaType.APPLICATION_JSON);
         out.print(mapper.setResponseObject(list));
@@ -51,7 +53,7 @@ public class QuizController extends HttpServlet {
         QuizIdDto quizDeleteReq= (QuizIdDto) mapper.getRequestObject(resp,req,QuizIdDto.class);
         resp.setContentType(MediaType.APPLICATION_JSON);
         if(service.deleteQuizById(quizDeleteReq)){
-            out.print(mapper.setResponseObject("200 OK"));
+            out.print(mapper.setResponseObject("200"));
         }else{
             out.print(mapper.setResponseObject("500"));
         }

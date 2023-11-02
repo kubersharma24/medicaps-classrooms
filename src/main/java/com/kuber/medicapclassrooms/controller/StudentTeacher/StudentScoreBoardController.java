@@ -23,10 +23,14 @@ public class StudentScoreBoardController extends HttpServlet {
         this.mapper = new RequestResponseMapper();
     }
 
-    @Override
+    @Override // return score of the one perticular quiz
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
-        StudentScoreDto studentScore = (StudentScoreDto) mapper.getRequestObject(resp,req, StudentScoreDto.class);
+//        StudentScoreDto studentScore = (StudentScoreDto) mapper.getRequestObject(resp,req, StudentScoreDto.class);
+        StudentScoreDto studentScore = new StudentScoreDto();
+        studentScore.setQuizId(Integer.parseInt(req.getParameter("quizId")));
+        studentScore.setUserId(req.getParameter("userId"));
+
         resp.setContentType(MediaType.APPLICATION_JSON);
         out.print(mapper.setResponseObject(service.getScoresOfStudentAttendedTheQuizByQuizId(studentScore)));
     }

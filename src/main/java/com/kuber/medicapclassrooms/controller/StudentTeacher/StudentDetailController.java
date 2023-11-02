@@ -27,7 +27,9 @@ public class StudentDetailController extends HttpServlet {
             // classId-> quizinclass-> return tile and descriptin
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
-        CLassCodeDto cLassCode = (CLassCodeDto) mapper.getRequestObject(resp,req,CLassCodeDto.class);
+//        CLassCodeDto cLassCode = (CLassCodeDto) mapper.getRequestObject(resp,req,CLassCodeDto.class);
+        CLassCodeDto cLassCode = new CLassCodeDto();
+        cLassCode.setClassCode(req.getParameter("classCode"));
         List<QuizResponseToStudent> list = service.getAllQuizOfStudentInClass(cLassCode);
         resp.setContentType(MediaType.APPLICATION_JSON);
         out.print(mapper.setResponseObject(list));
