@@ -36,6 +36,7 @@ public class Constants {
 	public static final String SET_QUIZ_STATUS_TO_ON_FROM_OF_IN_QUIZ_TABLE = "update quiz set status = ? where status = ? and quizID=?";
 	public static final String SET_QUIZ_STATUS_TO_OFF_FROM_ON_IN_QUIZ_TABLE = "update quiz set status = ? where status = ? and quizID=?";
 	public static final String GET_STATUS_OF_QUIZ_FROM_QUIZ_ID = "select status from quiz where quizid=?";
+	public static final String GET_DETAILS_OFF_ONE_CLASSROOM = "select * from classroom where classId=?";
 	static final String CONNECTIONS_URL = "jdbc:mysql://localhost:3306/classroom";
 	static final String USERNAME ="root";
 	static final String PASSWORD = "root";

@@ -140,4 +140,8 @@ public class Serviceimpl {
 	public String getQuizStatusById(QuizIdDto quizIdDto) {
 		return DBExecuter.getQuizStatusById(quizIdDto);
 	}
+
+	public Object getCLassDetails(CLassCodeDto cLassCodeDto) {
+		return DBExecuter.getCLassDetails(cLassCodeDto);
+	}
 }

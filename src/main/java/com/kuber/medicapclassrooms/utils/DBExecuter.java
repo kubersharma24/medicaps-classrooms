@@ -554,6 +554,27 @@ public class DBExecuter {
         }
     }
 
+    public static Object getCLassDetails(CLassCodeDto cLassCodeDto) {
+        PreparedStatement stm ;
+        try {
+            stm = con.prepareStatement(GET_DETAILS_OFF_ONE_CLASSROOM);
+            stm.setString(1,cLassCodeDto.getClassCode());
+            ResultSet resultSet = stm.executeQuery();
+            while(resultSet.next()){
+                Classroom classroomResponse = new Classroom();
+                classroomResponse.setDescription(resultSet.getString("description"));
+                classroomResponse.setId(cLassCodeDto.getClassCode());
+                classroomResponse.setSubject(resultSet.getString("subject"));
+                classroomResponse.setName(resultSet.getString("handlername"));
+                classroomResponse.setEmail(resultSet.getString("handlerId"));
+                return classroomResponse;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
     private AtomicInteger getSequencer() {
         int random = 1 + (int) (Math.random() * 999);
         return new AtomicInteger(random);
