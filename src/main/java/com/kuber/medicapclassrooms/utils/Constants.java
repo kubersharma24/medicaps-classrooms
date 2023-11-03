@@ -1,7 +1,7 @@
 package com.kuber.medicapclassrooms.utils;
 
 public class Constants {
-    public static final String CREATE_NEW_QUIZ =  "insert into quiz(title,quizDesc) values(?,?)";
+    public static final String CREATE_NEW_QUIZ =  "insert into quiz(title,quizDesc,status) values(?,?,?)";
 	public static final String JOIN_NEW_QUIZ_CLASSID = "insert into classroom_quiz values(?,?)";
 	public static final String QUERY_TO_GET_LASTENTRY = "select quizId from quiz ORDER BY quizId DESC LIMIT 1";
     public static final String FIND_ALL_QUIZ_IN_CLASS = "select * from Classroom_quiz where classId=?";
@@ -33,7 +33,10 @@ public class Constants {
     public static final String DROP_CLASSROOM_BY_CLASSID_USING_STUDENT_USER_NAME_AND_CLASSCODE = "delete from user_in_class where userId=? and classId=?";
     public static final String CHECK_IF_USER_HAS_ATTEMPTED_THE_QUIZ_OR_NOT = " select userId from quizresponse where quizId=? and userId=?";
     public static final String SEE_IF_STUDENT_HAS_ALRADY_JOINED_THE_CLASS_OR_NOT_IN_USER_IN_CLASSROOM_TABLE = "select userId from user_in_class where userId=? and classId=?";
-    static final String CONNECTIONS_URL = "jdbc:mysql://localhost:3306/classroom";
+	public static final String SET_QUIZ_STATUS_TO_ON_FROM_OF_IN_QUIZ_TABLE = "update quiz set status = ? where status = ? and quizID=?";
+	public static final String SET_QUIZ_STATUS_TO_OFF_FROM_ON_IN_QUIZ_TABLE = "update quiz set status = ? where status = ? and quizID=?";
+	public static final String GET_STATUS_OF_QUIZ_FROM_QUIZ_ID = "select status from quiz where quizid=?";
+	static final String CONNECTIONS_URL = "jdbc:mysql://localhost:3306/classroom";
 	static final String USERNAME ="root";
 	static final String PASSWORD = "root";
 	static final String VALID_EMAIL_QUERY = "select * user where email=?";            	  // VALIDATE USER 

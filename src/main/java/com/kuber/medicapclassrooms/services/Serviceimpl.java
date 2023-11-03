@@ -128,4 +128,16 @@ public class Serviceimpl {
 	public boolean checkIfuserHAsAllradyJoinedCLass(CLassCodeDto joinInclass) {
 		return DBExecuter.checkIfuserHAsAllradyJoinedCLass(joinInclass);
 	}
+
+	public boolean setQuizStatusToOn(QuizIdDto quizIdDto) {
+		return DBExecuter.setQuizStatusToOn(quizIdDto);
+	}
+
+	public boolean setQuizStatusToOFF(QuizIdDto quizIdDto) {
+		return DBExecuter.setQuizStatusToOFF(quizIdDto);
+	}
+
+	public String getQuizStatusById(QuizIdDto quizIdDto) {
+		return DBExecuter.getQuizStatusById(quizIdDto);
+	}
 }

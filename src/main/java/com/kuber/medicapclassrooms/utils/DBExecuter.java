@@ -38,6 +38,7 @@ public class DBExecuter {
                     respounse.setQuizId(quizid);
                     respounse.setQuizDescription(resultSet1.getString("quizDesc"));
                     respounse.setQuizTitle(resultSet1.getString("title"));
+                    respounse.setStatus(resultSet1.getString("status"));
                     list.add(respounse);
                 }
             }
@@ -504,6 +505,55 @@ public class DBExecuter {
         return false;
     }
 
+    public static boolean setQuizStatusToOn(QuizIdDto quizIdDto) {
+        PreparedStatement stm;
+        try {
+            stm = con.prepareStatement(SET_QUIZ_STATUS_TO_ON_FROM_OF_IN_QUIZ_TABLE);
+            stm.setString(1,"ON");
+            stm.setString(2,"OFF");
+            stm.setInt(3,quizIdDto.getQuizId());
+            if(stm.executeUpdate()>=0){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static boolean setQuizStatusToOFF(QuizIdDto quizIdDto) {
+        PreparedStatement stm;
+        try {
+            stm = con.prepareStatement(SET_QUIZ_STATUS_TO_OFF_FROM_ON_IN_QUIZ_TABLE);
+            stm.setString(1,"OFF");
+            stm.setString(2,"ON");
+            stm.setInt(3,quizIdDto.getQuizId());
+            if(stm.executeUpdate()>=0){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static String getQuizStatusById(QuizIdDto quizIdDto) {
+        PreparedStatement stm ;
+        try {
+            stm = con.prepareStatement(GET_STATUS_OF_QUIZ_FROM_QUIZ_ID);
+            stm.setInt(1,quizIdDto.getQuizId());
+            ResultSet resultSet1 = stm.executeQuery();
+            if(resultSet1.next()){
+                return resultSet1.getString("status");
+            }
+            return null;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private AtomicInteger getSequencer() {
         int random = 1 + (int) (Math.random() * 999);
         return new AtomicInteger(random);
@@ -589,6 +639,7 @@ public class DBExecuter {
             stm = con.prepareStatement(CREATE_NEW_QUIZ);
             stm.setString(1, newQuiz.getQuizTitle());
             stm.setString(2, newQuiz.getQuizDescription());
+            stm.setString(3,"OFF");
             if (stm.executeUpdate() > 0) {
                 int id = 0;
                 stm = con.prepareStatement(QUERY_TO_GET_LASTENTRY);

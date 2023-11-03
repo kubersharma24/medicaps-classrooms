@@ -9,4 +9,5 @@ public class QuizRespounseDto {
     private int quizId;
     private String quizTitle;
     private String quizDescription;
+    private String status;
 }
