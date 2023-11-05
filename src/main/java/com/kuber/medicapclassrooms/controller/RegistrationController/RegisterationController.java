@@ -1,11 +1,8 @@
 package com.kuber.medicapclassrooms.controller.RegistrationController;
 
-import com.kuber.medicapclassrooms.model.LoginResponse;
-import com.kuber.medicapclassrooms.model.Logininfo;
 import com.kuber.medicapclassrooms.model.Signup;
 import com.kuber.medicapclassrooms.services.Serviceimpl;
 import com.kuber.medicapclassrooms.utils.RequestResponseMapper;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -33,7 +30,7 @@ public class RegisterationController extends HttpServlet {
         if (service.createAccount(signup)) {
             out.print(mapper.setResponseObject(signup));
         }else{
-            out.print("bad req");
+            out.print(mapper.setResponseObject("Account already exist "));
         }
     }
 }
